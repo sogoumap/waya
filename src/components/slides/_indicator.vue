@@ -45,7 +45,7 @@ export default {
       type: String,
       default: 'circle',
       validator: val => {
-        return ['circle','square'].indexOf(val) !== -1;
+        return ['circle','square','number'].indexOf(val) !== -1;
       }
     }
   },

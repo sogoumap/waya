@@ -34,6 +34,11 @@
     }
   }
 }
+.wayo-slides__indicator_type_number{
+  display: inline-block;
+  vertical-align: middle;
+	color:$color-white-1;
+}
 .wayo-slides__content{
   position: relative;
   font-size: 1px;

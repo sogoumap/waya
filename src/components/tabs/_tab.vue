@@ -12,6 +12,7 @@ export default {
      */
     label: {
       type: String,
+      default: '',
       required: true
     },
     /**
@@ -52,6 +53,7 @@ export default {
     this.$parent.addBar({
       icon: this.icon,
       label: this.label,
+      slot: this.$slots.label||[],
       name: this.name
     });
     // 向父组件添加内容面板信息（自身）

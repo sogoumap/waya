@@ -64,7 +64,7 @@ export default {
      * @type {string}
      */
     styles(){
-      const Styles = [`background-color:${this.color};`];
+      const Styles = [];
       if(this.direction==='column'){
         this.height!==-1&&Styles.push(`height:${this.height}px;`);
         Styles.push(`-webkit-transform:scaleX(${1/this.dpr});`);

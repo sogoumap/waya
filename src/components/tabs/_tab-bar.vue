@@ -8,12 +8,13 @@
   v-on="$listeners">
   <slot>
     <wayo-icon v-if="icon" :name="icon" class="wayo-tab-bar__icon"/>
-    <label class="wayo-tab-bar__label">{{label}}</label>
+    <Label :label="label" :node="labelNode"></Label>
   </slot>
 </div>
 </template>
 
 <script>
+import Label from './_tab-bar-label.vue';
 import WayoIcon from '@/components/icon';
 /**
  * @vue
@@ -29,6 +30,16 @@ export default {
     label: {
       type: String,
       required: true
+    },
+    /**
+     * @prop 标签节点
+     * @type {Array}
+     * @required
+     */
+    labelNode: {
+      type: Array,
+      default: () => [],
+      required: false
     },
     /**
      * @prop 图标
@@ -70,6 +81,9 @@ export default {
   methods: {
     onClick(){
       this.$emit('clicked',this.name);
+    },
+    renderChild(name,node){
+      this.$slots[name] = node;
     }
   },
   mounted(){
@@ -85,7 +99,8 @@ export default {
     }
   },
   components: {
-    WayoIcon
+    WayoIcon,
+    Label
   }
 };
 </script>

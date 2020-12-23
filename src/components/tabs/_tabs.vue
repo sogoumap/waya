@@ -207,7 +207,8 @@ export default {
           this.bars[bar.name].index = index;
           return <Bar
             icon={bar.icon} 
-            label={bar.label} 
+            label={bar.label}
+            labelNode={bar.slot}
             name={bar.name} 
             stripe={this.stripe}
             active={this.current===bar.name}

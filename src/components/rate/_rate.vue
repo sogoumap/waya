@@ -4,14 +4,14 @@
     <div v-if="halfScoreIndex===i" class="wayo-rate__halfbox"
       :key="`halfbox-${index}`"
       :style="`height:${size}px;width:${size}px;line-height:1;font-size:${size}px;`">
-      <wayo-icon name="star-fill" class="wayo-rate-icon"  
+      <wayo-icon :name="fillIconName" class="wayo-rate__icon wayo-rate__unchosenColor"  
       :key="`${randomKey}-${i}`"
       :style="`${iconStyle(i)}position:absolute;top:0;left:0;`"/>
-      <wayo-icon name="star-half" class="wayo-rate__icon wayo-rate__icon-half" 
+      <wayo-icon :name="halfIconName" class="wayo-rate__icon wayo-rate__icon-half wayo-rate__chosenColor" 
         :key="`${randomKey}-${i}-half`"
-        :style="`${iconStyle(i)}color: ${chosenColor};`"/>
+        :style="`${iconStyle(i)}${chosenColor&&'color:'+chosenColor};`"/>
     </div>
-    <wayo-icon name="star-fill" class="wayo-rate__icon" v-else
+    <wayo-icon :name="fillIconName" :class="['wayo-rate__icon', score>=i?'wayo-rate__chosenColor':'wayo-rate__unchosenColor']" v-else
       :key="`${randomKey}-${i}`"
       :style="iconStyle(i)"/>
   </template>
@@ -89,7 +89,8 @@ export default {
      */
     chosenColor: {
       type: String,
-      default: '#ed5026'
+      default: ''
+      //default: '#ed5026'
     },
     /**
      * @prop 未选中星星的颜色
@@ -98,7 +99,26 @@ export default {
      */
     unchosenColor: {
       type: String,
-      default: '#d6d6d6'
+      default: ''
+      //default: '#d6d6d6'
+    },
+    /**
+     * @prop 完整星星图标
+     * @type {string}
+     * @default `star-fill`
+     */
+    fillIconName: {
+      type: String,
+      default: 'star-fill'
+    },
+    /**
+     * @prop 一半星星图标
+     * @type {string}
+     * @default `star-half`
+     */
+    halfIconName: {
+      type: String,
+      default: 'star-half'
     }
   },
   data(){
@@ -125,16 +145,14 @@ export default {
      * @param {number} index 索引值
      */
     iconStyle(index){
-      if(this.score>=index){
-        return [
-          `font-size:${this.size}px;`,
-          `color: ${this.chosenColor};`
-        ].join('');
+      var r=[`font-size:${this.size}px;`];
+      if(this.score>=index&&this.chosenColor){
+        r.push(`color: ${this.chosenColor};`);
       }
-      return [
-        `font-size:${this.size}px;`,
-        `color: ${this.unchosenColor};`
-      ].join('');
+      if(this.score<index&&this.unchosenColor){
+        r.push(`color: ${this.unchosenColor};`);
+      }
+      return r.join('');
     }
   },
   components: {

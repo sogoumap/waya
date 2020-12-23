@@ -49,7 +49,7 @@ export default {
       type: String,
       default: 'circle',
       validator: val => {
-        return ['circle','square','none'].indexOf(val) !== -1;
+        return ['circle','square','number','none'].indexOf(val) !== -1;
       }
     },
     /**
@@ -352,6 +352,13 @@ export default {
     const Indicators = (type => {
       if(type==='none'||this.itemCount<=1){
         return '';
+      }
+      if(type==='number'){
+        return <div class="wayo-slides__indicators">
+          <div class="wayo-slides__indicator_type_number">
+            {this.activeIndex+1}/{this.itemCount}
+          </div>
+        </div>;
       }
       return <div class="wayo-slides__indicators">
         {VNodes.map((node,index)=>{
